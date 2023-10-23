@@ -7,7 +7,7 @@ import cv2
 from PIL import Image
 from skimage import data
 from math import floor, ceil
-from skimage.feature import greycomatrix, greycoprops
+from skimage.feature import graycomatrix, graycoprops
 
 def main():
     pass
@@ -41,11 +41,11 @@ def calcu_glcm(img, vmin=0, vmax=255, nbit=64, slide_window=5, step=[2], angle=[
     patch = image_patch(img2, slide_window, h, w)
 
     # Calculate GLCM (5, 5, 512, 512) --> (64, 64, 512, 512)
-    # greycomatrix(image, distances, angles, levels=None, symmetric=False, normed=False)
+    # graycomatrix(image, distances, angles, levels=None, symmetric=False, normed=False)
     glcm = np.zeros((nbit, nbit, len(step), len(angle), h, w), dtype=np.uint8)
     for i in range(patch.shape[2]):
         for j in range(patch.shape[3]):
-            glcm[:, :, :, :, i, j]= greycomatrix(patch[:, :, i, j], step, angle, levels=nbit)
+            glcm[:, :, :, :, i, j]= graycomatrix(patch[:, :, i, j], step, angle, levels=nbit)
 
     return glcm
 
